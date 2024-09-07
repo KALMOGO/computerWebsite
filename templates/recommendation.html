@@ -1,0 +1,502 @@
+{% extends '__frames/main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block headLinks %}
+    <style>
+    
+        .advantages-slider {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            color: white;
+            padding: 20px 0;
+        }
+        .recommendation-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .recommendation-image {
+            height: 200px;
+            object-fit: cover;
+        }
+        .modal-body {
+            position: relative;
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+        }
+        .close-success {
+            
+            float: right;
+            font-size: 48px;
+            font-weight: bold;
+        }
+        .close-success:hover,
+        .close-success:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .loader-success {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        .product-image-success {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 576px) {
+            h1.mb-4.h5.title-count {
+                flex-direction: column;
+            }
+        }
+        
+    </style>
+{% endblock headLinks %}
+
+
+{% block bodyContent %}
+<header class="advantages-slider">
+    <div class="container">
+        <div id="advantagesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h2 class="text-center">Exclusive Discounts</h2>
+                    <p class="text-center">Get up to 15% off on your recommended computers!</p>
+                </div>
+                <div class="carousel-item">
+                    <h2 class="text-center">Extended Warranty</h2>
+                    <p class="text-center">Enjoy an additional year of warranty on all purchases.</p>
+                </div>
+                <div class="carousel-item">
+                    <h2 class="text-center">24/7 Customer Support</h2>
+                    <p class="text-center">Our expert team is always here to help you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container my-5">
+    <h1 class="mb-4 h5 title-count" >
+        <span>
+            Ordinateurs recommandés: <strong style="font-size: 20px; color: chocolate;" id="number-recommanded"> 3 ordinateurs</strong>
+        </span>
+        <br>
+
+        <span style="font-size: 12px; color: #000; flex-basis: 100%; text-align: left;">
+            Cette liste correspond aux ordinateurs parfait pour vos activités.
+        </span>
+    </h1>
+    
+    <hr>
+    <div class="row" id="recommendationsList">
+        <!-- Recommendations will be dynamically added here -->
+    </div>
+    <hr>
+
+    <div class="row">
+        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center">
+            <a href="{% url 'index' %}" class="btn btn-primary mt-2 " style=" color:#fff; width:25%" >Retour</a>
+        </div>
+    </div>
+
+</main>
+
+<!-- Modal images ordina-->
+<div class="modal fade" id="computerModal" tabindex="-1" aria-labelledby="computerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="computerModalLabel">Computer Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="computerCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Carousel items will be dynamically added here -->
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#computerCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#computerCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal detail-->
+<div class="modal fade" id="detailedViewModal" tabindex="-1" aria-labelledby="detailedViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailedViewModalLabel">Computer Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="detailedViewContent">
+                <!-- Detailed view content will be dynamically added here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="orderButton">Commander</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal commander-->
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Infos commande</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="orderForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom & Prenom</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Télephone</label>
+                        <input type="tel" class="form-control" id="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Localisation</label>
+                        <textarea class="form-control" id="address" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" id="submitOrder">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="orderModalSucess" class="modal">
+    <div class="modal-content">
+        <span class="close-success">&times;</span>
+
+        <h2 class="text-center">Enregistrement de votre commande...</h2>
+
+        <div id="loaderContainerSuccess">
+            <div class="loader-success"></div>
+            <p class="text-center">Veillez patientez votre commande est prise en compte...</p>
+        </div>
+
+        <div id="successMessage" style="display:none;">
+            <h2 class="text-center">Reuissi. Merci pour votre confiance!</h2>
+            <p class="text-center">
+                <div class="product-image-success">
+                    <svg width="300" height="300" viewBox="0 0 300 300">
+                        <rect x="50" y="50" width="200" height="200" fill="green" />
+                        <circle cx="150" cy="150" r="80" fill="#e74c3c" />
+                        <polygon points="150,70 180,120 220,120 190,170 200,220 150,200 100,220 110,170 80,120 120,120" fill="#f1c40f" />
+                    
+                    </svg>
+                Commande enregistrée avec success.
+                </div>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock bodyContent %}
+
+
+{% block JsContent %}
+<script>
+$(document).ready(function() {
+    // Simulated recommendation data (replace with actual API call)
+    const recommendations = [
+    {
+        id: 1,
+        name: "PowerBook Pro X1",
+        price: 1299.99,
+        specs: {
+            ram: "16GB",
+            storage: "512GB SSD",
+            cpu: "Intel Core i7",
+            gpu: "NVIDIA GeForce RTX 3060"
+        },
+        images: [ 
+            { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtRdGjFF0ZPhU54xxuTXqU_6ueRxuppnG13wjO1pJ1fRpUO5Qdnyfr7Nr-4flh2nBWdUo&usqp=CAU', alt: 'Front view of Laptop Model A with screen on' },
+            { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS0fPvrCz7piwQRplsLoqAxsYvL-dOAS27xe-5f0burHKLwCfg_SxgreMyHkBVcEjjUPM&usqp=CAU', alt: 'Side view of Laptop Model A showing ports' },
+            { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_qENvolnRfwDlmnkloNP7xlyC0JMA7dFfBQ&s', alt: 'Laptop Model A keyboard close-up' }
+        ],
+        image: "https://m.media-amazon.com/images/I/71CUP80TyEL._AC_SL1500_.jpg",
+        description: "A powerful laptop perfect for professionals and gamers alike."
+    },
+    {
+        id: 2,
+        name: "UltraSlim 5000",
+        price: 899.99,
+        specs: {
+            ram: "8GB",
+            storage: "256GB SSD",
+            cpu: "AMD Ryzen 5",
+            gpu: "Integrated AMD Radeon Graphics"
+        },
+        image: "https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg",
+        images: [
+        { src: 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg', alt: 'Front view of Laptop Model A with screen on' },
+        { src: 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg', alt: 'Side view of Laptop Model A showing ports' },
+        { src: 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg', alt: 'Laptop Model A keyboard close-up' }
+        ],
+        description: "Ultra-portable and perfect for on-the-go productivity."
+    },
+    {
+        id: 3,
+        name: "CreatorStation Pro",
+        price: 1799.99,
+        specs: {
+            ram: "32GB",
+            storage: "1TB SSD + 2TB HDD",
+            cpu: "Intel Core i9",
+            gpu: "NVIDIA GeForce RTX 3080"
+        },
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZXYj_pgsx5Xlwhqzszn9EKRrptoGt9bRtuA&s",
+        images: [
+            { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZXYj_pgsx5Xlwhqzszn9EKRrptoGt9bRtuA&s', alt: 'Front view of Laptop Model A with screen on' },
+            { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqR7pi0xDqusODJSn2bH1lLTZypFABKx123A&s', alt: 'Side view of Laptop Model A showing ports' },
+            { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_O9PkUfg8dBM1RqkBGo_dJG3qGNZJe1-Pfg&s', alt: 'Laptop Model A keyboard close-up' }
+        ],
+        description: "Designed for content creators and 3D artists who need maximum performance."
+    }
+];
+
+// Populate recommendations
+const recommendationsList = $('#recommendationsList');
+recommendations.forEach(computer => {
+    const card = `
+        <div class="col-md-3 mb-3">
+            <div class="card recommendation-card">
+                <img src="${computer.image}" class="card-img-top recommendation-image" alt="${computer.name}">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align:center">${computer.name}</h5>
+                    <p class="card-text text-success m-0">Price: $${computer.price}</p>
+                    <p class="card-text m-0">RAM: ${computer.specs.ram}</p>
+                    <p class="card-text m-0">Storage: ${computer.specs.storage}</p>
+                    <div style="display:flex; flex-direction:column">
+                        <button class="btn view-details mt-2" style="background-color:#003330; color:#fff" data-id="${computer.id}">Voir détails</button>
+                        <button class="btn view-images mt-2" style="background-color:#bddbe8;" data-computer="${computer.id}" data-bs-toggle="modal" data-bs-target="#computerModal">Images</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    recommendationsList.append(card);
+});
+
+// Event listener for showing the modal
+const computerModal = document.getElementById('computerModal');
+computerModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const computerId = button.getAttribute('data-computer');
+    const modalTitle = computerModal.querySelector('.modal-title');
+    const carouselInner = computerModal.querySelector('.carousel-inner');
+
+    // Filtrer pour trouver l'ordinateur selectionne
+    const computerInfo = recommendations.find(computer => computer.id == computerId);
+
+    if (computerInfo) {
+        modalTitle.textContent = "Mieux inspecter: " + computerInfo.name;
+        carouselInner.innerHTML = '';
+
+        computerInfo.images.forEach((image, index) => {
+            const carouselItem = document.createElement('div');
+            carouselItem.classList.add('carousel-item');
+            if (index === 0) carouselItem.classList.add('active');
+
+            carouselItem.innerHTML = `
+                <img src="${image.src}" class="d-block w-100" alt="${image.alt}" width="800" height="600">
+            `;
+            carouselInner.appendChild(carouselItem);
+        });
+    }
+});
+
+
+    // Order
+    // View Details button click handler
+    $('.view-details').click(function() {
+        const computerId = $(this).data('id');
+        const computer = recommendations.find(c => c.id === computerId);
+        
+        const detailedContent = `
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="${computer.image}" class="img-fluid" alt="${computer.name}">
+                </div>
+
+                <div class="col-md-6">
+                    <h3>${computer.name}</h3>
+                    <p class="m-0 text-success"><strong>Price: </strong> $${computer.price}</p>
+                    <p class="m-0"><strong>RAM:</strong> ${computer.specs.ram}</p>
+                    <p class="m-0"><strong>Storage:</strong> ${computer.specs.storage}</p>
+                    <p class="m-0"><strong>CPU:</strong> ${computer.specs.cpu}</p>
+                    <p class="m-0"><strong>GPU:</strong> ${computer.specs.gpu}</p>
+                    <p class="m-0">${computer.description}</p>
+
+                    <p class="mt-1 text-success"><strong>Télécharger les informations (.pdf)</strong></p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <h3 style="font-weight:bolder">
+                        Raisons: 
+                    </h3>
+                    <p> 
+                        Meets your requirement fr high-performance workstation
+                        Large RAM capacity fr complex computations
+                        Professional-grade GPU fr specialized tasks 
+                        <br><br>
+                        Meets your requirement fr high-performance workstation
+                        Large RAM capacity fr complex computations
+                        Professional-grade GPU fr specialized tasks
+                        <br><br>
+                        Meets your requirement fr high-performance workstation
+                        Large RAM capacity fr complex computations
+                        Professional-grade GPU fr specialized tasks
+                    </p>
+                </div>
+            </div>
+        `;
+        
+        $('#detailedViewContent').html(detailedContent);
+        $('#detailedViewModal').modal('show');
+    });
+
+    // Order button click handler
+    $('#orderButton').click(function() {
+        $('#detailedViewModal').modal('hide');
+        $('#orderModal').modal('show');
+    });
+
+    // Submit order handler
+    $('#submitOrder').click(function() {
+        if ($('#orderForm')[0].checkValidity()) {
+            $('#orderModal').modal('hide');
+
+            // Envoie de commande
+            //addConfettiEffectCelebration();
+            modalsuccess.style.display = "block";
+            loaderContainer.style.display = "block";
+            successMessage.style.display = "none";
+            // Simulate order processing
+            setTimeout(function() {
+                loaderContainer.style.display = "none";
+                successMessage.style.display = "block";
+            }, 3000); // Change to desired loading time (in milliseconds)
+
+        } else {
+            $('#orderForm')[0].reportValidity();
+        }
+    });
+
+    // Sucess action
+        var modalsuccess = document.getElementById("orderModalSucess");
+        
+        var spansuccess = document.getElementsByClassName("close-success")[0];
+        var loaderContainer = document.getElementById("loaderContainerSuccess");
+        var successMessage = document.getElementById("successMessage");
+
+        spansuccess.onclick = function() {
+            modalsuccess.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modalsuccess) {
+                modalsuccess.style.display = "none";
+            }
+        }
+
+            // Commande success pti bouton
+    // Add a confetti effect for extra celebration
+    function addConfettiEffectCelebration(){
+
+        const confettiCount = 200;
+    const confettiColors = ['#4CAF50', '#FFC107', '#E91E63'];
+    const confettiClass = 'confetti-piece';
+
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add(confettiClass);  // Add a class to each confetti element
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.borderRadius = '50%';
+        confetti.style.opacity = Math.random();
+        confetti.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+        confetti.style.animation = 'fall ' + (Math.random() * 3 + 2) + 's linear';
+        document.body.appendChild(confetti);
+    }
+
+    // Clean up confetti after animation
+    setTimeout(() => {
+        const confetti = document.querySelectorAll(`.${confettiClass}`);  // Select elements by the added class
+        confetti.forEach(el => el.remove());
+    }, 5000);
+
+        // Confetti fall animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    }
+    
+
+       // Icon soleil
+     // Add some winter sun magic
+     $('body').append('<div id="sun" style="position: fixed; top: 20px; right: 20px; width: 60px; height: 60px; background: radial-gradient(circle, #FFD700, #FFA500); border-radius: 50%; box-shadow: 0 0 20px #FFD700;"></div>');
+            
+     // Animate the sun
+    function animateSun() {
+         $('#sun').animate({
+             top: '+=20px',
+             opacity: 0.7
+         }, 2000).animate({
+             top: '-=20px',
+             opacity: 1
+        }, 2000, animateSun);
+    }
+    
+    animateSun();
+});
+</script>
+
+{% endblock JsContent %}

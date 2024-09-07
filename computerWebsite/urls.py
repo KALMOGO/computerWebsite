@@ -22,8 +22,7 @@ from django.views.static import serve
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("bright/", include("main.urls")),
-    path("bright/", include("main.urls")),
+    path("bright.cbuy/", include("main.urls")),
 
     re_path(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT}),

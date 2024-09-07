@@ -1,3 +1,77 @@
-/db.sqlite3
-/static
-/staticfiles
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.pkl
+*.pyo
+*.whl
+*.egg-info/
+*.eggs/
+*.cover
+*.coverage
+*.coveragerc
+.coverage.*
+.cache
+*.manifest
+*.spec
+db.sqlite3
+debug_toolbar/
+
+# Django migrations
+*/migrations/*
+
+# If you're using SQLite3:
+*.sqlite3
+
+# Media and static files (if they are generated automatically)
+media/
+static/
+staticfiles/
+
+# If you're using the Django compressor
+compressed/
+
+# Secrets and configuration files
+.env
+.env.*
+
+# Local virtual environments
+venv/
+ENV/
+env/
+.venv/
+build/
+dist/
+pip-wheel-metadata/
+pip-log.txt
+
+# Node.js dependencies (if using npm or yarn)
+node_modules/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.tmproj
+.vscode/
+
+# Mac OS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+ehthumbs.db
+
+# JetBrains IDEs
+*.iml
+*.ipr
+*.iws
+.idea/
