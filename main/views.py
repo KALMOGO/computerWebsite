@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from article import models
 
 def home(request) :
     context = {

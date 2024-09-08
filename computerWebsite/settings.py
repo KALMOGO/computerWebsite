@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # External app
     'tinymce',
     "main",
+    "article"
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# CONSTANTS TAILLE DES IMAGES
+image_max_height =  1000
+image_max_width  = 1000
