@@ -78,3 +78,5 @@ class ComputerPhoto(models.Model):
     def save(self, *args, **kwargs) -> None:
         self.slug = f"{self.computer.pk + random.random() * 100}"
         super().save(*args, **kwargs)
+
+
