@@ -1,0 +1,119 @@
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your Command Has Been Successfully Saved!</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #6e48aa, #9d50bb);
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+    }
+    .container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 20px; /* Increased padding for better mobile view */
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto; /* Center container */
+    }
+
+    /* Media query for small screens */
+    @media (max-width: 600px) {
+        .container {
+            padding: 15px;
+        }
+        h1 {
+            font-size: 1.5rem; /* Reduce font size on smaller screens */
+        }
+        p {
+            font-size: 0.9rem; /* Adjust paragraph font size */
+        }
+        .timer {
+            font-size: 1.2rem;
+        }
+    }
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 0;
+        color: green;
+    }
+    p {
+        font-size: 1.2em;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+    .checkmark {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 30px;
+    }
+
+    @keyframes confetti {
+        0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
+        100% { transform: translateY(1000px) rotateZ(720deg); opacity: 0; }
+    }
+    .timer {
+        font-size: 2em;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+    <div class="container" style="background-color: #fff;">
+        <ul style="list-style-type: none;
+                    margin-bottom: 0; 
+                    padding: 0; 
+                    color:#000;
+                    display: flex;
+                    justify-content: flex-start; /* Aligns items to the left */
+                    flex-wrap: wrap;"> <!-- Added flex-wrap for responsiveness -->
+            <li> 
+                <a href="{% url 'index' %}">Aller à l'accueil</a> 
+            </li>
+        </ul>
+    
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="max-width: 100%; height: auto;">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" stroke="#ffd700" stroke-width="2"/>
+            <path class="checkmark__check" fill="none" stroke="#ffd700" stroke-width="2" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+    
+        <h1 style="font-size: 2rem;">Votre commande a été enregistrée avec succès!</h1>
+        
+        <p style="color:#000; font-size: 1rem;">
+            Il sera traité dans un délai de trois jours.
+        </p>
+    
+        <div class="timer" id="timer" style="color:#6e48aa; font-size: 1.5rem;">3 jours 00:00:00</div>
+    </div>
+    <script>
+ 
+
+        // Countdown timer
+        const timer = document.getElementById('timer');
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 3);
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            timer.textContent = `${days} jour(s) ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            if (diff > 0) {
+                requestAnimationFrame(updateTimer);
+            }
+        }
+
+        updateTimer();
+    </script>
+</body></html>

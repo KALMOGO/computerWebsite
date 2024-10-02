@@ -1,0 +1,751 @@
+{
+    "id": "PC001",
+    "brand": "TechMaster",
+    "model": "PowerPro X1",
+    "type": "Desktop",
+    "price": {
+    "amount": 1299.99,
+    "currency": "CFA"
+    },
+    "specs": {
+    "processor": {
+        "brand": "Intel",
+        "model": "Core i7-11700K",
+        "cores": 8,
+        "threads": 16,
+        "baseClockSpeed": "3.6 GHz",
+        "turboClockSpeed": "5.0 GHz"
+    },
+    "memory": {
+        "type": "DDR4",
+        "capacity": "32 GB",
+        "speed": "3200 MHz"
+    },
+    "storage": [
+        {
+        "type": "SSD",
+        "capacity": "1 TB",
+        "interface": "NVMe PCIe 4.0"
+        },
+        {
+        "type": "HDD",
+        "capacity": "2 TB",
+        "rpm": 7200
+        }
+    ],
+    "graphics": {
+        "type": "Dedicated",
+        "brand": "NVIDIA",
+        "model": "GeForce RTX 3070",
+        "memory": "8 GB GDDR6"
+    },
+    "motherboard": {
+        "brand": "ASUS",
+        "model": "ROG STRIX Z590-E GAMING WIFI"
+    },
+    "powerSupply": {
+        "wattage": 750,
+        "efficiency": "80+ Gold"
+    },
+    "cooling": {
+        "type": "Liquid",
+        "radiatorSize": "240mm"
+    },
+    "case": {
+        "form_factor": "ATX Mid Tower",
+        "color": "Black"
+    }
+    },
+    "connectivity": {
+    "wifi": "WiFi 6 (802.11ax)",
+    "bluetooth": "5.2",
+    "ethernet": "2.5 Gigabit"
+    },
+    "ports": {
+    "usb": {
+        "usb3_2_gen2_typeC": 1,
+        "usb3_2_gen2_typeA": 3,
+        "usb3_2_gen1_typeA": 4,
+        "usb2_0": 2
+    },
+    "display": {
+        "hdmi": 1,
+        "displayPort": 3
+    },
+    "audio": {
+        "frontPanel": "1x 3.5mm combo jack",
+        "rearPanel": "5x 3.5mm jack, 1x Optical S/PDIF"
+    }
+    },
+    "operatingSystem": {
+    "name": "Windows 11",
+    "version": "Home",
+    "bitness": 64
+    },
+    
+    "dimensions": {
+    "height": "45 cm",
+    "width": "21 cm",
+    "depth": "46 cm",
+    "weight": "12 kg"
+    },
+    "warranty": {
+    "duration": "2 years",
+    "type": "Limited hardware warranty",
+    "support": "24/7 phone and online support"
+    },
+    "energyRating": "ENERGY STAR certified",
+    "extras": [
+    "RGB lighting",
+    "Tool-less design for easy upgrades"
+    ]
+},
+// ------------2
+{
+    "id": "PC002",
+    "brand": "HP",
+    "model": "UltraX Pro",
+    "type": "Desktop",
+    "price": {
+    "amount": 1999.99,
+    "currency": "USD"
+    },
+    "specs": {
+    "processor": {
+        "brand": "AMD",
+        "model": "Ryzen 9 5900X",
+        "cores": 12,
+        "threads": 24,
+        "baseClockSpeed": "3.7 GHz",
+        "turboClockSpeed": "4.8 GHz"
+    },
+    "memory": {
+        "type": "DDR4",
+        "capacity": "64 Go",
+        "speed": "3600 MHz"
+    },
+    "storage": [
+    {
+        "type": "SSD",
+        "capacity": "2 To",
+        "interface": "NVMe PCIe 4.0"
+    },
+    {
+        "type": "HDD",
+        "capacity": "4 To",
+        "rpm": 7200
+        }
+    ],
+    "graphics": {
+        "type": "Dédié",
+        "brand": "AMD",
+        "model": "Radeon RX 6800 XT",
+        "memory": "16 Go GDDR6"
+    },
+    "motherboard": {
+        "brand": "MSI",
+        "model": "MAG B550 TOMAHAWK"
+    },
+    "powerSupply": {
+        "wattage": 850,
+        "efficiency": "80+ Platinum"
+    },
+    "cooling": {
+        "type": "Air",
+        "coolerModel": "Noctua NH-D15"},
+    "case": {
+        "form_factor": "ATX Full Tower",
+        "color": "Blanc"}
+    },
+    "connectivity": {
+    "wifi": "WiFi 6E (802.11ax)",
+    "bluetooth": "5.2",
+    "ethernet": "10 Gigabit"
+    },
+    "ports": { "usb": {
+        "usb3_2_gen2_typeC": 2,
+        "usb3_2_gen2_typeA": 4,
+        "usb3_2_gen1_typeA": 2,
+        "usb2_0": 1
+    },
+    "display": {
+        "hdmi": 2,
+        "displayPort": 1
+    },
+    "audio": {
+        "frontPanel":["1x USB-C", {"type":"jack 3.5mm", "quantity":"1"}],
+        "rearPanel":["6x jack 3.5mm", {"type":"Optical S/PDIF", "quantity":"1"}]
+    }
+    },
+    "operatingSystem":{
+            "name":"Windows 10 Pro",
+            "version":"",
+            "bitness":"64"
+        },
+        "dimensions":{
+            "height":"50 cm",
+            "width":"25 cm",
+            "depth":"55 cm",
+            "weight":"15 kg"
+        },
+        "warranty":{
+            "duration":"3 ans",
+            "type":"Garantie complète",
+            "support":"Support en ligne et par téléphone 24/7"
+        },
+        "energyRating":"Certifié ENERGY STAR",
+        "extras":[
+            "Effets d'éclairage RGB personnalisés",
+            "Panneau latéral en verre trempé"
+        ]
+},
+// 3 ------------------------------
+{
+    "id": "PC003",
+    "brand": "LENEVO",
+    "model": "ProGaming Z5",
+    "type": "Station de travail",
+    "price": {
+        "amount": 250000,
+        "currency": "CFA"
+    },
+    "specs": {
+        "processor": {
+        "brand": "Intel",
+        "model": "Core i9-12900K",
+        "cores": 16,
+        "threads": 24,
+        "baseClockSpeed": "3.2 GHz",
+        "turboClockSpeed": "5.2 GHz"
+        },
+        "memory": {
+        "type": "DDR5",
+        "capacity": "128 Go",
+        "speed": "4800 MHz"
+        },
+        "storage": [
+        {
+            "type": "SSD",
+            "capacity": "4 To",
+            "interface": "NVMe PCIe 4.0"
+        },
+        {
+            "type": "HDD",
+            "capacity": "8 To",
+            "rpm": 7200
+        }
+        ],
+        "graphics": {
+        "type": "Dédié",
+        "brand": "NVIDIA",
+        "model": "GeForce RTX 4090",
+        "memory": "24 Go GDDR6X"
+        },
+        "motherboard": {
+        "brand": "ASUS",
+        "model": "ROG MAXIMUS Z690 HERO"
+        },
+        "powerSupply": {
+        "wattage": 1000,
+        "efficiency": "80+ Titanium"
+        },
+        "cooling": {
+        "type": "Liquid",
+        "coolerModel": "Corsair H150i Elite Capellix"
+        },
+        "case": {
+        "form_factor": "ATX Mid Tower",
+        "color": "Noir"
+        }
+    },
+    "connectivity": {
+        "wifi": "WiFi 6E (802.11ax)",
+        "bluetooth": "5.2",
+        "ethernet": "2.5 Gigabit"
+    },
+    "ports": {
+        "usb": {
+        "usb3_2_gen2_typeC": 2,
+        "usb3_2_gen2_typeA": 4,
+        "usb3_2_gen1_typeA": 3,
+        "usb2_0": 1
+        },
+        "display": {
+        "hdmi": 2,
+        "displayPort": 3
+        },
+        "audio": {
+            "frontPanel":["1x USB-C",  {"type":"jack 3.5mm",        "quantity":"1"}],
+            "rearPanel":["5x jack 3.5mm",    {"type":"Optical S/PDIF",   "quantity":"1"}]
+        }
+    },
+    
+        "operatingSystem":{
+                "name":"Windows 11 Pro",
+                "version":"",
+                "bitness":"64"
+        },
+        
+        "dimensions":{
+                "height":"45 cm",
+                "width":"22 cm",
+                "depth":"50 cm",
+                "weight":"18 kg"
+        },
+        "warranty":{
+                "duration":"3 ans",
+                "type":"Garantie complète sur les pièces et la main-d'œuvre",
+                "support":"Support technique par téléphone et en ligne"
+        },
+        "energyRating":"Certifié ENERGY STAR",
+        "extras":[
+                "Système d'éclairage RGB personnalisable",
+                "Panneau latéral en verre trempé avec éclairage LED"
+        ]
+},
+// 4---------------------- 
+{
+    "id": "PC004",
+    "brand": "DELL",
+    "model": "EliteWorkstation X1",
+    "type": "Station de travail",
+    "price": {
+    "amount": 300000,
+    "currency": "CFA"
+    },
+    "specs": {
+    "processor": {
+        "brand": "AMD",
+        "model": "Ryzen 9 5900X",
+        "cores": 12,
+        "threads": 24,
+        "baseClockSpeed": "3.7 GHz",
+        "turboClockSpeed": "4.8 GHz"
+    },
+    "memory": {
+        "type": "DDR4",
+        "capacity": "64 Go",
+        "speed": "3200 MHz"
+    },
+    "storage": [
+        {
+        "type": "SSD",
+        "capacity": "2 To",
+        "interface": "NVMe PCIe 4.0"
+        },
+        {
+        "type": "HDD",
+        "capacity": "6 To",
+        "rpm": 7200
+        }
+    ],
+    "graphics": {
+        "type": "Dédié",
+        "brand": "NVIDIA",
+        "model": "GeForce RTX 3080",
+        "memory": "10 Go GDDR6X"
+    },
+    "motherboard": {
+        "brand": "Gigabyte",
+        "model": "B550 AORUS ELITE"
+    },
+    "powerSupply": {
+        "wattage": 750,
+        "efficiency": "80+ Gold"
+    },
+    "cooling": {
+        "type": "Air",
+        "coolerModel": "Noctua NH-U12S"
+    },
+    "case": {
+        "form_factor": "ATX Mid Tower",
+        "color": "Argent"
+    }
+    },
+    "connectivity": {
+    "wifi": "WiFi 6 (802.11ax)",
+    "bluetooth": "5.1",
+    "ethernet": "1 Gigabit"
+    },
+    "ports": {
+    "usb": {
+        "usb3_2_gen2_typeC": 1,
+        "usb3_2_gen2_typeA": 4,
+        "usb3_2_gen1_typeA": 2,
+        "usb2_0": 2
+    },
+    "display": {
+        "hdmi": 1,
+        "displayPort": 2
+    },
+    "audio": {
+
+        "frontPanel":["1x USB-C",        {"type":"jack 3.5mm",        "quantity":"1"}],
+        "rearPanel":["3x jack 3.5mm",   {"type":"Optical S/PDIF",      "quantity":"1"}]
+    }
+    },
+        "operatingSystem":{
+            "name":"Windows 11 Pro",
+            "version":"",
+            "bitness":"64"
+        },
+        
+        "dimensions":{
+            "height":"46 cm",
+            "width":"23 cm",
+            "depth":"48 cm",
+            "weight":"15 kg"
+        },
+        
+        "warranty":{
+            "duration":"3 ans",
+            "type":"Garantie limitée sur les pièces et la main-d'œuvre",
+            "support":"Assistance technique par téléphone et en ligne"
+        },
+        
+        "energyRating":"Certifié ENERGY STAR",
+        
+        "extras":[
+            "Système de refroidissement amélioré avec ventilateurs RGB",
+            "Panneau latéral en verre trempé avec éclairage LED"
+        ]
+},
+// 5--------------------
+{
+    "id": "PC005",
+    "brand": "FutureTech",
+    "model": "Quantum Pro",
+    "type": "Station de travail",
+    "price": {
+        "amount": 3499.99,
+        "currency": "EUR"
+    },
+    "specs": {
+        "processor": {
+        "brand": "Intel",
+        "model": "Core i9-13900K",
+        "cores": 24,
+        "threads": 32,
+        "baseClockSpeed": "3.0 GHz",
+        "turboClockSpeed": "5.8 GHz"
+        },
+        "memory": {
+        "type": "DDR5",
+        "capacity": "128 Go",
+        "speed": "5200 MHz"
+        },
+        "storage": [
+        {
+            "type": "SSD",
+            "capacity": "8 To",
+            "interface": "NVMe PCIe 5.0"
+        },
+        {
+            "type": "HDD",
+            "capacity": "10 To",
+            "rpm": 7200
+        }
+        ],
+        "graphics": {
+        "type": "Dédié",
+        "brand": "NVIDIA",
+        "model": "GeForce RTX 4090 Ti",
+        "memory": "24 Go GDDR6X"
+        },
+        "motherboard": {
+        "brand": "ASUS",
+        "model": "ROG STRIX Z790-E GAMING WIFI"
+        },
+        "powerSupply": {
+        "wattage": 1200,
+        "efficiency": "80+ Platinum"
+        },
+        "cooling": {
+        "type": "Liquid",
+        "coolerModel": "NZXT Kraken Z73"
+        },
+        "case": {
+        "form_factor": "ATX Full Tower",
+        "color": "Blanc"
+        }
+    },
+    "connectivity": {
+        "wifi": "WiFi 6E (802.11ax)",
+        "bluetooth": "5.3",
+        "ethernet": "10 Gigabit"
+    },
+    "ports": {
+        "usb": {
+        "usb3_2_gen2_typeC": 2,
+        "usb3_2_gen2_typeA": 5,
+        "usb3_2_gen1_typeA": 4,
+        "usb2_0": 2
+        },
+        "display": {
+        "hdmi": 2,
+        "displayPort": 4
+        },
+        "audio": {
+            "frontPanel":["1x USB-C", 
+                        {"type":"jack 3.5mm", 
+                            "quantity":"1"}],
+            "rearPanel":["6x jack 3.5mm", 
+                        {"type":"Optical S/PDIF", 
+                            "quantity":"1"}]
+        }
+    },
+    
+    // Operating system details
+        "operatingSystem":{
+                "name":"Windows 11 Pro",
+                "version":"",
+                "bitness":"64"
+        },
+        
+        "dimensions":{
+                "height":"50 cm",
+                "width":"25 cm",
+                "depth":"55 cm",
+                "weight":"20 kg"
+        },
+        
+        "warranty":{
+                "duration":"3 ans",
+                "type":"Garantie complète sur les pièces et la main-d'œuvre",
+                "support":"Assistance technique par téléphone et en ligne"
+        },
+        
+        "energyRating":"Certifié ENERGY STAR",
+        
+        "extras":[
+                "Système de refroidissement avancé avec affichage LCD",
+                "Panneau latéral en verre trempé avec éclairage RGB"
+        ]
+},
+//6 -------------------------
+{
+    "id": "PC006",
+    "brand": "HP",
+    "model": "Z4 G4 Workstation",
+    "type": "Station de travail",
+    "price": {
+        "amount": 2899.99,
+        "currency": "CFA"
+    },
+    "specs": {
+        "processor": {
+        "brand": "Intel",
+        "model": "Xeon W-2235",
+        "cores": 6,
+        "threads": 12,
+        "baseClockSpeed": "3.8 GHz",
+        "turboClockSpeed": "4.6 GHz"
+        },
+        "memory": {
+        "type": "DDR4",
+        "capacity": "64 Go",
+        "speed": "2933 MHz"
+        },
+        "storage": [
+        {
+            "type": "SSD",
+            "capacity": "2 To",
+            "interface": "NVMe PCIe 3.0"
+        },
+        {
+            "type": "HDD",
+            "capacity": "4 To",
+            "rpm": 7200
+        }
+        ],
+        "graphics": {
+        "type": "Dédié",
+        "brand": "NVIDIA",
+        "model": "Quadro RTX 4000",
+        "memory": "8 Go GDDR6"
+        },
+        "motherboard": {
+        "brand": "HP",
+        "model": "Z4 G4 Motherboard"
+        },
+        "powerSupply": {
+        "wattage": 750,
+        "efficiency": "80+ Gold"
+        },
+        "cooling": {
+        "type": "Air",
+        "coolerModel": "HP Air Cooler"
+        },
+        "case": {
+        "form_factor": "ATX Mid Tower",
+        "color": "Gris"
+        }
+    },
+    "connectivity": {
+        "wifi": null,
+        "bluetooth": null,
+        "ethernet": null
+    },
+    "ports": {
+        "usb": {
+        "usb3_2_gen2_typeC": 1,
+        "usb3_2_gen2_typeA": 4,
+        "usb3_2_gen1_typeA": 2,
+        "usb2_0": 2
+        },
+        "display": {
+        "hdmi": 1,
+        "displayPort": 3
+        },
+        "audio": {
+            "frontPanel":["1x USB-C", 
+                        {"type":"jack 3.5mm", 
+                            "quantity":"1"}],
+            "rearPanel":["5x jack 3.5mm", 
+                        {"type":"Optical S/PDIF", 
+                            "quantity":"1"}]
+        }
+    },
+    
+    // Operating system details
+        "operatingSystem":{
+                "name":"Windows 10 Pro",
+                "version":"",
+                "bitness":"64"
+        },
+        
+        "dimensions":{
+                "height":"45 cm",
+                "width":"20 cm",
+                "depth":"50 cm",
+                "weight":"15 kg"
+        },
+        
+        "warranty":{
+                "duration":"3 ans",
+                "type":"Garantie limitée sur les pièces et la main-d'œuvre",
+                "support":"Assistance technique par téléphone et en ligne"
+        },
+        
+        "energyRating":"Certifié ENERGY STAR",
+        
+        "extras":[
+                "Système de refroidissement silencieux",
+                "Panneau latéral en verre trempé"
+        ]
+},
+// 7 ---------------------------
+{
+    "id": "PC017",
+    "brand": "Dell",
+    "model": "XPS 8940",
+    "type": "Ordinateur de bureau",
+    "price": {
+        "amount": 1999.99,
+        "currency": "CFA"
+    },
+    "specs": {
+        "processor": {
+        "brand": "Intel",
+        "model": "Core i7-11700",
+        "cores": 8,
+        "threads": 16,
+        "baseClockSpeed": "2.5 GHz",
+        "turboClockSpeed": "4.9 GHz"
+        },
+        "memory": {
+        "type": "DDR4",
+        "capacity": "32 Go",
+        "speed": "3200 MHz"
+        },
+        "storage": [
+        {
+            "type": "SSD",
+            "capacity": "1 To",
+            "interface": "NVMe PCIe 4.0"
+        },
+        {
+            "type": "HDD",
+            "capacity": "2 To",
+            "rpm": 7200
+        }
+        ],
+        "graphics": {
+        "type": "Dédié",
+        "brand": "NVIDIA",
+        "model": "GeForce RTX 3060 Ti",
+        "memory": "8 Go GDDR6"
+        },
+        "motherboard": {
+        "brand": "Dell",
+        "model": "XPS Motherboard"
+        },
+        "powerSupply": {
+        "wattage": 650,
+        "efficiency": null
+        },
+        "cooling": {
+
+        "type": null
+        },
+        "case": {
+
+        "color": "Noir"
+        }
+    },
+    
+"connectivity": {
+        "wifi": "WiFi 6 (802.11ax)",
+        "bluetooth": "5.1",
+        "ethernet": "1 Gigabit"
+    },
+    
+    "ports": {
+        "usb": {
+        "usb3_2_gen2_typeC": 1,
+        "usb3_2_gen2_typeA": 4,
+        "usb3_2_gen1_typeA": 2,
+        "usb2_0": 1
+        },
+        "display": {
+        "hdmi": 1,
+        "displayPort": 1
+        },
+        "audio": {
+            "frontPanel":["1x USB-C", 
+                        {"type":"jack 3.5mm", 
+                            "quantity":"1"}],
+            "rearPanel":["3x jack 3.5mm", 
+                        {"type":"Optical S/PDIF", 
+                            "quantity":"1"}]
+        }
+    },
+    
+        // Operating system details for the desktop computer
+        "operatingSystem":{
+                "name":"Windows 11 Home",
+                "version":"",
+                "bitness":"64"
+        },
+        
+        // Dimensions of the desktop computer
+        "dimensions":{
+                "height":"40 cm",
+                "width":"20 cm",
+                "depth":"45 cm",
+                "weight":"10 kg"
+        },
+        
+        // Warranty details for the desktop computer
+        "warranty":{
+                "duration":"3 ans",
+                "type":"Garantie limitée sur les pièces et la main-d'œuvre",
+                "support":"Assistance technique par téléphone et en ligne"
+        },
+        
+        "energyRating":"Certifié ENERGY STAR",
+        "extras":[
+                "Système audio haut de gamme intégré",
+                "Panneau latéral en verre trempé"
+        ],
+}

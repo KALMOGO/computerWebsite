@@ -4,15 +4,15 @@ from django.db import models
 class Supplier(models.Model):
     company = models.CharField(max_length=150, null=True, blank=True)
     first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    last_name  = models.CharField(max_length=100)
     phone1 = models.CharField(max_length=10, null=True, blank=True)
     phone2 = models.CharField(max_length=10, null=True, blank=True)
-    photo = models.ImageField(upload_to='media/computers/images/', null=True, blank=True)
+    photo  = models.ImageField(upload_to='media/computers/images/', null=True, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     is_partner= models.BooleanField(default=False)
     town      = models.CharField(max_length=200)
     lat  = models.CharField(max_length=200, null=True, blank=True)
-    lon = models.CharField(max_length=200, null=True, blank=True)
+    lon  = models.CharField(max_length=200, null=True, blank=True)
     
     class Meta:
         verbose_name_plural = "Suppliers"

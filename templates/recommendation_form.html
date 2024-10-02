@@ -1,0 +1,688 @@
+{% extends '__frames/main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block headLinks %}
+
+<!-- CssContent -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<style>
+      *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+}
+  body {
+    background-color: #f8f9fa !important;
+    color: #333 !important;
+  }
+  .navbar-brand {
+    background-color:  linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .navbar {
+    background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .section-title {
+    color: #7b1fa2;
+    border-bottom: 2px solid #7b1fa2;
+    padding-bottom: 10px;
+  }
+  .computer-title {
+    color: #4a148c !important;
+    font-weight: bold !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1) !important;
+  }
+.form-section {
+        background-color: white;
+        border-radius: 10px;
+        /* box-shadow: 0 0 20px rgba(0,0,0,0.1); */
+        padding: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+.progress {
+    height: 5px;
+    margin-bottom: 20px;
+}
+.btn-nav {
+    margin-top: 20px;
+}
+.hidden {
+    display: none;
+}
+.form-check-input{
+    padding:12px;
+}
+
+.card-condition {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+.card-condition:hover {
+    transform: translateY(-5px);
+}
+.card-condition > h1 {
+    color: #333;
+    text-align: center;
+}
+.card-condition > h3 {
+    color: #7b1fa2;
+    border-bottom: 2px solid #7b1fa2;
+    padding-bottom: 10px;
+}
+.condition-p {
+    color: #34495e;
+    line-height: 1.6;
+}
+.condition-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+#accept {
+    margin-right: 10px;
+}
+#condition-label {
+    color: #34495e;
+}
+#condition-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+#condition-btn:hover {
+    background-color: #2980b9;
+}
+.brand:hover{
+    background-color: #7b1fa2 !important;
+    color:#fff;
+  }
+  .ms-auto .nav-item .nav-link{
+    color:#fff;
+  }
+  .ms-auto .nav-item .nav-link:hover{
+    text-decoration: underline;
+  }
+footer {
+    background: #333;
+    color: white;
+    padding: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-section {
+    text-align: center;
+  }
+  .footer-section h3 {
+    margin-bottom: 10px;
+  }
+  .social-icons a {
+    color: white;
+    font-size: 24px;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+  }
+  .bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 4s infinite ease-in-out;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  .remove-field {
+        cursor: pointer;
+        color: red;
+    }
+</style>
+
+{% endblock headLinks %}
+
+{% block bodyContent %}
+
+    <div class="container" style="background-color: #fff; min-height:600px; margin-bottom: 10px;">
+        <div class="row justify-content-center">
+            <div class="col-10  form-section">
+
+                <h4 class="text-center mb-4">
+                   <b> Système de recherche exacte </b>
+                </h4>
+
+                <form id="recommendationForm">
+                    {% csrf_token %}
+
+                    <div id="step1" class="step">
+                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/2</span> </h5>              
+
+                        <div class="card-condition">
+                            <h3>1. Description des informations à renseigner </h3>
+                            <p>
+                                <h6> Informations obigatoire (*) </h6>
+                                <ul>
+                                    <li> Marque </li>
+                                    <li>budget Minimum</li>
+                                    <li>budget maximal</li>
+                                    <li>marge de tolerance: dégrès d'augmentation de votre budget maximal </li>
+                                    <li>Capacité du processeur (coeurs, vitesse) </li>
+                                    <li>Capacité de la RAM </li>
+                                    <li>Capacité du disque dure </li>
+                                </ul>
+                                <h6 style="color:green"> Possibilité d'ajouter d'autres informations supplémentaires sur les ordinateurs </h6>
+                            </p>
+                        </div>
+                        
+                        <div class="card-condition">
+                            <h3>2. Acception des utilisations</h3>
+                            <p class="condition-p">
+                                Le système de commande requiert certains informations personnelles. Ces informations uniquement
+                                utiliser dans du traitement de votre commande. En acceptant les conditions d'utilisations, nous nous engageons à les 
+                                protéger.
+                            </p>
+                            <div class="checkbox-container condition-container" style="text-align: center !important;">
+                                <label for="accept" id="condition-label" style="font-size: 18px; cursor: pointer;">
+                                    <input type="checkbox" id="accept" name="accept" required style="transform: scale(2); margin-right: 10px;">
+                                    J'ai lu et j'accepte les conditions et les politiques d'utilisation
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div id="step2" class="step hidden">
+
+                        <div class="mb-3" id = "basic-meta-infos">
+                            <div class="mb-3" style="border:1px solid black; border-radius:15px;">
+                                <ul>
+                                    <h6> &#128514;  Bonne nouvelle :   </h6>
+                                    <li id="basic-infos-okitem"> </li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-3" style="border:1px solid black; border-radius:15px;">
+                                <ul id="exceptions-ul"></ul>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="brand" class="form-label">
+                                <strong style="color:#7b1fa2; font-size: 18px;">
+                                    * Marque de l'ordinateur </strong></label>
+                            <div id="brand" class="d-flex flex-wrap p-3">
+                                
+                                {% for brand in brands %}
+                                    <div class="form-check flex-fill mb-2" style="min-width: 200px;">
+                                        <label class="form-check-label" for="{{brand}}" style="text-transform:uppercase">
+                                        <input class="form-check-input" type="checkbox" value="{{brand}}" id="{{brand}}" style="margin-right: 5px;">
+                                            <b>{{brand}}</b>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <strong style="color:#7b1fa2; font-size: 18px;"  >* RAM </strong> <br>
+                            <div class="d-flex flex-wrap p-3">
+                                {% for computerRAM in computerRAMS %}
+                                    <div class="form-check flex-fill mb-2" style="min-width: 200px;" id="ram">
+                                        <label class="form-check-label" for="{{computerRAM.capacity}}" style="text-transform:uppercase">
+                                        <input class="form-check-input" type="checkbox" value="{{computerRAM.capacity}}" id="{{computerRAM.capacity}}" style="margin-right: 5px;">
+                                            <b>{{computerRAM.capacity}} GB</b>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong style="color:#7b1fa2; font-size: 18px;"  >* Capacité du processeur </strong> <br>
+                            <div class="d-flex flex-wrap p-3">
+                                <!-- {% for computerRAM in computerRAMS %} -->
+                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                    <label class="form-check-label" for="i3" style="text-transform:uppercase">
+                                    <input class="form-check-input" type="checkbox" value="i3" id="i3" style="margin-right: 5px;">
+                                        <b>core i 3</b>
+                                    </label>
+                                </div> 
+
+                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                    <label class="form-check-label" for="i5" style="text-transform:uppercase">
+                                    <input class="form-check-input" type="checkbox" value="i5" id="i5" style="margin-right: 5px;">
+                                        <b>core i 5</b>
+                                    </label>
+                                </div> 
+
+                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                    <label class="form-check-label" for="i7" style="text-transform:uppercase">
+                                    <input class="form-check-input" type="checkbox" value="i7" id="i7" style="margin-right: 5px;">
+                                        <b>core i 7</b>
+                                    </label>
+                                </div> 
+
+                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                    <label class="form-check-label" for="i9" style="text-transform:uppercase">
+                                    <input class="form-check-input" type="checkbox" value="i9" id="i9" style="margin-right: 5px;">
+                                        <b>core i 9</b>
+                                    </label>
+                                </div> 
+
+                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                    <label class="form-check-label" for="i11" style="text-transform:uppercase">
+                                    <input class="form-check-input" type="checkbox" value="i11" id="i1" style="margin-right: 5px;">
+                                        <b>core i 11</b>
+                                    </label>
+                                </div> 
+                            </div>
+                                <!-- {% endfor %} -->
+                        </div>
+
+                        <div class="mb-3" >
+                            <strong style="color:#7b1fa2; font-size: 18px;"  >* Vitesse du processeur </strong> <br>
+                            <div class="d-flex flex-wrap p-3">
+
+                                <!-- {% for computerRAM in computerRAMS %} -->
+                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                    <label class="form-check-label" for="speed-1" style="text-transform:uppercase">
+                                    <input class="form-check-input" type="checkbox" value="1 GHZ" id="speed-1" style="margin-right: 5px;">
+                                        <b>1.6 GHZ</b>
+                                    </label>
+                                </div>
+    
+                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                    <label class="form-check-label" for="speed-14" style="text-transform:uppercase">
+                                    <input class="form-check-input" type="checkbox" value="2 GHZ" id="speed-14" style="margin-right: 5px;">
+                                        <b>1.4 GHZ</b>
+                                    </label>
+                                </div>
+                                    <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
+                                        <label class="form-check-label" for="speed-2" style="text-transform:uppercase">
+                                        <input class="form-check-input" type="checkbox" value="2 GHZ" id="speed-2" style="margin-right: 5px;">
+                                            <b>2 GHZ</b>
+                                        </label>
+                                    </div>
+                                <!-- {% endfor %} -->
+                            </div>
+                            
+                        </div>
+                        <!-- Stockage -->
+                        <div class="mb-3 p-3">
+                            <label for="minBudget" class="form-label">
+                                <strong style="color:#7b1fa2; font-size: 18px;">
+                            * Stockage </strong> 
+                            
+                        </label>
+                        <select class="form-select" id="Stockage">
+                            <option value="">Aucune sélection</option>
+                            <option value="2TB">2TB HDD</option>
+                            <option value="1TB">1TB HDD</option>
+                            <option value="512 GB">512 GB HDD</option>
+
+                            <option value="2TB SDD">2TB SDD</option>
+                            <option value="1TB SDD">1TB SDD</option>
+                            <option value="512 GB SDD">512 GB SDD</option>
+                        </select>
+                        </div>
+
+                        <!-- Budget -->
+                        <div class="mb-3">
+                            <label for="minBudget" class="form-label">
+                                <strong style="color:#7b1fa2; font-size: 18px;">
+                                    * Budget (FCFA) </strong> </label>
+                            <div class="row g-2 p-3">
+                                <div class="col-12 col-md-6">
+                                    <input type="number" name="minBudget" class="form-control" id="minBudget" placeholder="Budget Minimum" required>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <input type="number" name="maxBudget" class="form-control" id="maxBudget" placeholder="Budget Maximum" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 p-3">
+                            <div class="mb-3">
+                                <strong style="color:#7b1fa2; font-size:18px">* Inclure une marge de tolerance du prix maximal: </strong> </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-50" value="50" checked>
+                                <strong class="form-check-label" for="radio-50">50%</strong>
+                            </div>
+                        
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-60" value="60">
+                                <strong class="form-check-label" for="radio-60">60%</strong>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"  type="radio" name="inlineRadioOptions" id="radio-80" value="80">
+                                <strong class="form-check-label" for="radio-80">80%</strong>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-100" value="100">
+                                <strong class="form-check-label" for="radio-100"> 100%</strong>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 p-3">
+                            <strong class="mb-3" style="font-family: roboto; color:#7b1fa2"> <i > Prix maximal calculé  </i>=  budget_maximal * (1+ %apha )</strong>
+                            <div style="margin-top:10px; ">
+                                <textarea class="form-control" id="floatingTextarea" style="max-height: 50px;" disabled>0 FCFA </textarea>
+                              </div>
+                        </div>
+                      
+                        <!--  Champ supp -->
+                        <div class="mb-3 p-3">
+                            <label for="characteristicSelect" class="form-label" style="color:green; font-size: 18px;">
+                                <b>
+                                    Ajouter des caracteristiques supplementaire 
+                                </b>
+                            </label>
+
+                            <select class="form-select" id="characteristicSelect">
+                                <option value="">Sélectionné</option>
+                                <option value="color">Couleur</option>
+                                <option value="graphic">Carte graphique</option>
+                                <option value="height">Ecran</option>
+                                <option value="ram">Poids</option>
+                                <option value="storage">hauteur</option>
+                                <option value="largeur">largeur</option>
+                            </select>
+                        </div>
+                        <div id="dynamicFields"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-between btn-nav">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" style="display:none;">Etape Précedente</button>
+                        <button type="button" class="btn " id="nextBtn" style="background-color: #7b1fa2; color:#fff">Etape Suivante</button>
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display:none; background-color: #7b1fa2;">Soumettre</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock bodyContent %}
+
+{% block JsContent %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            let currentStep = 1;
+            const totalSteps = 2;
+    
+            function updateProgress() {
+                let progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+                $('.progress-bar').css('width', progress + '%').attr('aria-valuenow', progress);
+            }
+    
+            function showStep(step) {
+                $('.step').addClass('hidden');
+                $('#step' + step).removeClass('hidden');
+                updateProgress();
+    
+                $('#prevBtn').toggle(step > 1);
+                $('#nextBtn').toggle(step < totalSteps);
+                $('#submitBtn').toggle(step === totalSteps);
+            }
+    
+            // Div des messages d'informations
+            const request_meta_info = document.querySelector("#basic-meta-infos");
+            request_meta_info.style.display = "none";
+
+            function bdQuery(formData, url) {
+                fetch(url, {  
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        console.log(response)
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    
+                    // Afficher les messages d'Informations
+                    if(data.message == 'partial success'){
+                        // Afficher le div des messages d'informations
+                            request_meta_info.style.display = "inline-block";  
+                        
+                        const item_li_ok     = document.querySelector("#basic-infos-okitem")
+                        const except_ul= document.querySelector("#exceptions-ul")
+                        let listContent = "<h6>&#128546; Exceptions : </h6>"
+                        item_li_ok.innerHTML  = `Des ordinateurs de marque <strong style="font-family:roboto"> ${data.brand_find.join(', ')} </strong> correspondent au budget de <strong style="font-family:roboto"> ${data.minbudget} à ${data.maxbudget} FCFA </strong> ont été retrouvés.`
+
+                        data.moreInformations.forEach(info => {
+                            listContent += `<li class="except_li_item"> Le prix minimum pour un ordinateur de marque: <strong style="font-family:roboto"> ${info.brand} </strong> est de: <strong style="font-family:roboto"> ${info.price} FCFA </strong> </li>`;
+                        });
+                        listContent +="<span style='font-family:roboto' >* Corriger les exceptions.</span>"
+                        
+                        except_ul.innerHTML = listContent;
+                        //
+                    }
+
+                    // Tous les données sont valides navige vers la page suivante
+                    if(data.message == 'success'){
+                        // Afficher le div des messages d'informations
+                            request_meta_info.style.display = "none";
+
+                        currentStep++; // Incrementer le stepper
+                        showStep(currentStep);
+
+                    }
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+            
+
+            function sendData(step) {
+                switch (step) {
+                    case 1:
+                        currentStep++;
+                        showStep(currentStep);
+                        break;
+                    case 2:
+                        const url = "{% url 'withouai_step2' %}";
+                        
+                        const checkedBrands = $('#brand input[type="checkbox"]:checked').map(function() {
+                            return this.value;
+                        }).get();
+    
+                        let data = {
+                            minBudget: document.getElementById("minBudget").value,
+                            maxBudget: document.getElementById("maxBudget").value,
+                            brand_list: checkedBrands
+                        };
+    
+                        if (data.brand_list.length > 0 && data.minBudget !== '' && data.maxBudget !== '') {
+                            bdQuery(data, url); // No need to stringify here
+                        }
+                        break;
+    
+                    case 3:
+                        // Collect data for step 3
+                        break;
+    
+                    case 4:
+                        // Collect data for step 4
+                        break;
+    
+                    case 5:
+                        // Collect data for step 5
+                        break;
+    
+                    default:
+                        return {};
+                }
+            }
+    
+            $('#nextBtn').click(function() {
+                if (currentStep < totalSteps) {
+                    sendData(currentStep); // Send data before moving to the next step
+                }
+            });
+    
+            $('#prevBtn').click(function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+    
+            $('#recommendationForm').submit(function(e) {
+                e.preventDefault();
+                alert('Thank you for submitting the form. We will process your recommendation shortly!');
+                window.location.href = '/thank-you';
+            });
+    
+            showStep(currentStep);
+        });
+    </script>
+
+     <!-- Select dynamiq -->
+     <script>
+        const characteristicSelect = document.getElementById('characteristicSelect');
+        const dynamicFields = document.getElementById('dynamicFields');
+        const addedFields = new Set();
+    
+        const fieldTypes = {
+            color: {
+                type: 'select',
+                options: ['Black', 'White', 'Silver', 'Red', 'Blue']
+            },
+            graphic: {
+                type: 'select',
+                options: ['Non', 'Oui']
+            },
+            os: {
+                type: 'select',
+                options: ['Windows 10', 'Windows 11', 'macOS', 'Linux']
+            },
+            height: {
+                type: 'number',
+                placeholder: 'Enter height in cm'
+            },
+            ram: {
+                type: 'select',
+                options: ['4GB', '8GB', '16GB', '32GB', '64GB']
+            },
+            storage: {
+                type: 'text',
+                placeholder: 'Enter storage capacity (e.g., 512GB SSD)'
+            }
+        };
+        dynamicFields.style.padding ="10px"
+        characteristicSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            if (selectedValue && !addedFields.has(selectedValue)) {
+                addField(selectedValue);
+                addedFields.add(selectedValue);
+                this.value = '';
+            }
+        });
+    
+        function addField(fieldName) {
+            const fieldConfig = fieldTypes[fieldName];
+            const fieldDiv = document.createElement('div');
+            fieldDiv.className = 'mb-3';
+            fieldDiv.dataset.field = fieldName;
+    
+            const label = document.createElement('label');
+            label.className = 'form-label';
+            label.textContent = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ':';
+            label.style.color = "#7b1fa2"
+            label.style.fontWeight = "bold"
+            fieldDiv.appendChild(label);
+    
+            let input;
+            if (fieldConfig.type === 'select') {
+                input = document.createElement('select');
+                input.className = 'form-select';
+                fieldConfig.options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.toLowerCase();
+                    optionElement.textContent = option;
+                    input.appendChild(optionElement);
+                });
+            } else {
+                input = document.createElement('input');
+                input.type = fieldConfig.type;
+                input.className = 'form-control';
+                input.placeholder = fieldConfig.placeholder;
+            }
+            input.id = fieldName + 'Input';
+            input.name = fieldName;
+            fieldDiv.appendChild(input);
+    
+            const removeIcon = document.createElement('i');
+            removeIcon.className = 'bi bi-dash-circle remove-field';
+            removeIcon.addEventListener('click', function() {
+                dynamicFields.removeChild(fieldDiv);
+                addedFields.delete(fieldName);
+            });
+            fieldDiv.appendChild(removeIcon);
+    
+            dynamicFields.appendChild(fieldDiv);
+        }
+    
+        document.getElementById('computerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            let result = '';
+            for (let [key, value] of formData.entries()) {
+                result += `${key}: ${value}\n`;
+            }
+            alert('Form submitted with the following data:\n\n' + result);
+        });
+        </script>
+    {% endblock JsContent %}

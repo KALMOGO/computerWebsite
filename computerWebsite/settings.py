@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'corsheaders',
     
     # External app
     'tinymce',
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -135,3 +137,24 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CONSTANTS TAILLE DES IMAGES
 image_max_height =  1000
 image_max_width  = 1000
+
+#
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 800,
+    'menubar': 'fichier édition affichage insertion format outils table aide',  # French translations for menubar
+    'plugins': 'advlist autolink lists link image charmap print preview anchor '
+               'searchreplace visualblocks code fullscreen '
+               'insertdatetime media table paste code help wordcount',
+    'toolbar': 'annuler rétablir | formatselect | gras italique arrière-plan | '
+               'aligngauche aligncentre aligndroite alignjustifier | '
+               'listedepuces listenumerotée réduire indentation | enleverformatage | aide',  # Translated toolbar
+    'language': 'fr_FR',  # Set language to French
+    'language_url': '/static/tinymce/langs/fr_FR.js',  # Ensure you have the language file loaded
+    'plugins': 'lists link image charmap print preview anchor '
+               'searchreplace visualblocks code fullscreen '
+               'insertdatetime media table paste code help wordcount',
+    'toolbar': 'undo redo | formatselect | bold italic backcolor | '
+               'alignleft aligncenter alignright alignjustify | '
+               'bullist numlist outdent indent | removeformat | help',
+}

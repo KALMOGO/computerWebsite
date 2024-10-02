@@ -1,0 +1,597 @@
+{% extends '__frames/main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block headLinks %}
+
+<!-- CssContent -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+}
+body {
+    background-color: #f8f9fa !important;
+    color: #333 !important;
+  }
+  .navbar-brand {
+    background-color:  linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .navbar {
+    background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .section-title {
+    color: #7b1fa2;
+    border-bottom: 2px solid #7b1fa2;
+    padding-bottom: 10px;
+  }
+  .computer-title {
+    color: #4a148c !important;
+    font-weight: bold !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1) !important;
+  }
+    .form-section {
+        background-color: white;
+        border-radius: 10px;
+        /* box-shadow: 0 0 20px rgba(0,0,0,0.1); */
+        padding: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .progress {
+        height: 5px;
+        margin-bottom: 20px;
+    }
+    .btn-nav {
+        margin-top: 20px;
+    }
+    .hidden {
+        display: none;
+    }
+    .form-check-input{
+        padding:12px;
+    }
+
+    .modal-body {
+    max-height: 600px;
+ 
+    overflow-y: auto;
+  }
+  #jobList {
+    list-style-type: none;
+    padding: 0;
+  }
+  #jobList li {
+    cursor: pointer;
+    padding: 5px;
+  }
+  #jobList li:hover {
+    background-color: #f8f9fa;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-section {
+    text-align: center;
+  }
+  .footer-section h3 {
+    margin-bottom: 10px;
+  }
+  .social-icons a {
+    color: white;
+    font-size: 24px;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+  }
+  .bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 4s infinite ease-in-out;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  
+.card-condition {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+.card-condition:hover {
+    transform: translateY(-5px);
+}
+.card-condition > h1 {
+    color: #333;
+    text-align: center;
+}
+.card-condition > h3 {
+    color: #7b1fa2;
+    border-bottom: 2px solid #7b1fa2;
+    padding-bottom: 10px;
+}
+.condition-p {
+    color: #34495e;
+    line-height: 1.6;
+}
+.condition-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+#accept {
+    margin-right: 10px;
+}
+#condition-label {
+    color: #34495e;
+}
+#condition-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+#condition-btn:hover {
+    background-color: #2980b9;
+}
+.brand:hover{
+    background-color: #7b1fa2 !important;
+    color:#fff;
+  }
+  .ms-auto .nav-item .nav-link{
+    color:#fff;
+  }
+  .ms-auto .nav-item .nav-link:hover{
+    text-decoration: underline;
+  }
+footer {
+    background: #333;
+    color: white;
+    padding: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-section {
+    text-align: center;
+  }
+  .footer-section h3 {
+    margin-bottom: 10px;
+  }
+</style>
+
+{% endblock headLinks %}
+
+{% block bodyContent %}
+    <!-- Form container -->
+    <div class="container" style="background-color: #fff; min-height:600px; margin-bottom: 10px;">
+        <!-- <div class="p-0 mt-1 row justify-content-center">
+            <div class="col-10">
+                <a href="javascript:history.back()" class="btn btn-secondary">
+                    &lt; Précédent
+                </a>
+            </div>
+        </div> -->
+
+        <div class="row justify-content-center">
+            <div class="col-10 form-section">
+                <!-- <a href="javascript:history.back()" class="btn btn-secondary">
+                    &lt; Précédent
+                </a> -->
+                <h4 class="text-center mb-4">
+                  <b>  ZoodoAI </b>
+                </h4>
+
+                <!-- Progress bar -->
+                <!-- <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div> -->
+
+                <!-- Form -->
+                <form id="recommendationForm">
+                    {% csrf_token %}
+                    <div id="step1" class="step">
+                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/2</span> </h5>
+                        <div class="text-center" style="color: #000; font-weight: bold;">
+                             Renseigner vos besoin et laisser ZoodoAI vous trouvez l'ordinateur qui correspont le mieux à budget et à vos activités.
+                        </div>
+
+                        <div class="card-condition">
+                            <h3>1. Description des informations à renseigner </h3>
+                            <p>
+                                <ul>
+                                    <li>Budget Minimum</li>
+                                    <li>Budget maximal</li>
+                                    <li>Marge de tolerance: dégrès d'augmentation de votre budget maximal </li>
+                                    <li>Métier: domaine d'activité dans lequel l'ordinateur sera utilisé</li>
+                                    <li>Description (non obligatoire): apporter quelques precision sur les tâches que devra réaliser l'ordinateur ou votre métier. </li>
+                                </ul>
+                            </p>
+                        </div>
+                        
+                        <div class="card-condition">
+                            <h3>2. Acception des utilisations</h3>
+                            <p class="condition-p">
+                                Le système de commande requiert certains informations personnelles, telque votre nom. Ces informations uniquement
+                                utiliser dans du traitement de votre commande. En acceptant les conditions d'utilisations, nous nous engageons à les 
+                                protéger.
+                            </p>
+                            <div class="checkbox-container condition-container" style="text-align: center !important;">
+                                <label for="accept" id="condition-label" style="font-size: 18px; cursor: pointer;">
+                                    <input type="checkbox" id="accept" name="accept" required style="transform: scale(2); margin-right: 10px;">
+                                    J'ai lu et j'accepte les conditions et les politiques d'utilisation
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div id="step2" class="step hidden">
+                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">2/2</span> </h5>
+                        
+                        <div class="mb-3">
+                            <label for="minBudget" class="form-label">
+                                <strong style="color:#7b1fa2;font-size: 18px;">
+                                    * Budget (FCFA) </strong> </label>
+                            <div class="row g-2">
+                                <div class="col-12 col-md-6">
+                                    <input type="number" name="minBudget" class="form-control" id="minBudget" placeholder="Budget Minimum" value="0" required>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <input type="number" name="maxBudget" class="form-control" id="maxBudget" placeholder="Budget Maximum" value="0" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="jobInput" class="form-label">
+                                <b style="color:#7b1fa2;font-size: 18px;"> * Mon métier</b> </label>
+                            <input type="text" class="form-control" id="jobInput" placeholder="Aucune sélection"
+                             data-bs-toggle="modal" data-bs-target="#jobModal" readonly required>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong class="mb-3" style="color:#7b1fa2; font-size: 18px;">
+                                Précision sur le travail: <i>max.250 Mots</i> </strong>
+
+                            <div style="margin-top:10px;" class="form-floating">
+                                <textarea class="form-control" id="jobDescription" oninput="checkWordLimit(this)"></textarea>
+                                <label for="jobDescription">Description de l'activité</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <strong style="color:#7b1fa2; font-size:18px">* Inclure une marge de tolerance du prix maximal: </strong> </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-50" value="50" checked>
+                                <strong class="form-check-label" for="radio-50">50%</strong>
+                            </div>
+                        
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-60" value="60">
+                                <strong class="form-check-label" for="radio-60">60%</strong>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"  type="radio" name="inlineRadioOptions" id="radio-80" value="80">
+                                <strong class="form-check-label" for="radio-80">80%</strong>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-100" value="100">
+                                <strong class="form-check-label" for="radio-100"> 100%</strong>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong class="mb-3" style="font-family: roboto; color:#7b1fa2"> <i > Prix maximal calculé  </i>=  budget_maximal * (1+ %apha )</strong>
+                            <div style="margin-top:10px;">
+                                <textarea class="form-control" id="floatingTextarea" style="max-height: 50px;" disabled>0 FCFA </textarea>
+                              </div>
+                        </div>
+                    </div>  
+<!--          
+                    <div id="step3" class="step hidden">
+
+                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">3</span> </h5>
+                        <div id="jobForm">
+                            <div class="mb-3">
+                              <label for="jobInput" class="form-label"><b style="color:green"> * Mon métier</b> </label>
+                              <input type="text" class="form-control" id="jobInput" placeholder="Aucune sélection"
+                               data-bs-toggle="modal" data-bs-target="#jobModal" readonly required>
+                            </div>
+                        </div>
+                          
+                        <div class="mb-3">
+                            <strong class="mb-3" style="color:green">Précision sur le travail: <i>max.250 Mots</i> </strong>
+
+                            <div style="margin-top:10px;" class="form-floating">
+                                <textarea class="form-control" id="jobDescription" oninput="checkWordLimit(this)"></textarea>
+                                <label for="jobDescription">Description de l'activité</label>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="d-flex justify-content-between btn-nav">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" style="display:none;">Etape Précedente</button>
+                        <button type="button" class="btn " id="nextBtn" style="background-color: #7b1fa2; color:#fff">Etape Suivante</button>
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="display:none; background-color: #7b1fa2;">Soumettre</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal form -->
+    <div class="modal fade" id="jobModal" tabindex="-1" aria-labelledby="jobModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="jobModalLabel"> <b> Sélectionner votre métier </b>  </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="text" class="form-control mb-3" id="jobSearch" placeholder="Rechercher votre métier...">
+              <ul id="jobList"></ul>
+
+              <div id="loadMore" class="text-center mt-3" style="display: none;">
+                <button class="btn btn-primary btn-sm">Charger plus</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+      
+    <!-- Footer -->
+    {% endblock bodyContent %}
+
+{% block JsContent %}
+    <!-- JScontent -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+                let currentStep = 1;
+                const totalSteps = 2;
+        
+    function updateProgress() {
+                    let progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+                    $('.progress-bar').css('width', progress + '%').attr('aria-valuenow', progress);
+        }
+        
+    function showStep(step) {
+                    $('.step').addClass('hidden');
+                    $('#step' + step).removeClass('hidden');
+                    updateProgress();
+        
+                    $('#prevBtn').toggle(step > 1);
+                    $('#nextBtn').toggle(step < totalSteps);
+                    $('#submitBtn').toggle(step === totalSteps);
+                }
+        
+
+                function getCheckedRadioValue() {
+                const checkedRadio = document.querySelector('input[name="inlineRadioOptions"]:checked');
+                return checkedRadio ? checkedRadio.value : null;
+                }
+            
+                function getCsrfToken() {
+                    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+                }
+                function bdQuery_2(formData, url) {
+                    // Create a form element
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = url;
+                    
+                    // Add CSRF token
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = 'csrfmiddlewaretoken';
+                    csrfInput.value = getCsrfToken();
+                    form.appendChild(csrfInput);
+
+                    // Add form data
+                    for (const key in formData) {
+                        if (formData.hasOwnProperty(key)) {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = key;
+                            input.value = formData[key];
+                            form.appendChild(input);
+                        }
+                    }
+
+                    // Append form to body and submit
+                    document.body.appendChild(form);
+                    form.submit();
+
+                    // Remove form from document
+                    document.body.removeChild(form);
+                }
+                
+                
+                function sendData(step) {
+                    switch (step) {
+                        case 1:
+                            currentStep++;
+                            showStep(currentStep);
+                            break;
+        
+                        case 2:
+                            const isalphaChecked = getCheckedRadioValue();
+                            if(isalphaChecked === null){
+                                alert("alpha n'est pas renseigner ! ")
+                            }
+                            currentStep++;
+                            showStep(currentStep);
+                            break;
+        
+                        case 3:
+                            const url = "{% url 'withai_submit' %}"
+                            const formData = {
+                                "budgetMin":document.querySelector('#minBudget').value,
+                                "budgetMax":document.querySelector('#maxBudget').value,
+                                "alpha"    :getCheckedRadioValue(),
+                                "jobTile"  :document.querySelector('#jobInput').value,
+                                "jobDescription": document.querySelector('#jobDescription').value
+                            }
+                            //console.log(formData);
+                            bdQuery_2(formData, url)
+                            break;
+                        default:
+                            return {};
+                    }
+                }
+        
+                $('#nextBtn').click(function() {
+                    if (currentStep < totalSteps) {
+                        sendData(currentStep); // Send data before moving to the next step
+                    }
+                });
+        
+                $('#prevBtn').click(function() {
+                    if (currentStep > 1) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+        
+                $('#recommendationForm').submit(function(e) {
+                    e.preventDefault();
+                    sendData(3);
+                });
+        
+                showStep(currentStep);
+            });
+    </script>
+
+    <script>
+        const jobs = [
+        "Développeur web", "Ingénieur logiciel", "Designer graphique", "Médecin", "Avocat",
+        "Enseignant", "Comptable", "Infirmier", "Chef cuisinier", "Architecte",
+        "Journaliste", "Photographe", "Électricien", "Plombier", "Mécanicien",
+        "Coiffeur", "Dentiste", "Pharmacien", "Vétérinaire", "Pilote", "Autres"
+        ];
+        
+        let currentIndex = 0;
+        const itemsPerLoad = 30;
+        
+        function loadMoreJobs() {
+        const jobList = document.getElementById('jobList');
+        const endIndex = Math.min(currentIndex + itemsPerLoad, jobs.length);
+        
+        for (let i = currentIndex; i < endIndex; i++) {
+            const li = document.createElement('li');
+            li.textContent = jobs[i];
+            li.onclick = function() {
+            document.getElementById('jobInput').value = this.textContent;
+            $('#jobModal').modal('hide');
+            };
+            jobList.appendChild(li);
+        }
+        
+        currentIndex = endIndex;
+        
+        if (currentIndex >= jobs.length) {
+            document.getElementById('loadMore').style.display = 'none';
+        } else {
+            document.getElementById('loadMore').style.display = 'block';
+        }
+        }
+        
+        document.getElementById('loadMore').querySelector('button').addEventListener('click', loadMoreJobs);
+        
+        document.getElementById('jobSearch').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const jobList = document.getElementById('jobList');
+        jobList.innerHTML = '';
+        
+        const filteredJobs = jobs.filter(job => job.toLowerCase().includes(searchTerm));
+        filteredJobs.forEach(job => {
+            const li = document.createElement('li');
+            li.textContent = job;
+            li.onclick = function() {
+            document.getElementById('jobInput').value = this.textContent;
+            $('#jobModal').modal('hide');
+            };
+            jobList.appendChild(li);
+        });
+        
+        document.getElementById('loadMore').style.display = 'none';
+        });
+        
+        $('#jobModal').on('shown.bs.modal', function () {
+        document.getElementById('jobList').innerHTML = '';
+        currentIndex = 0;
+        loadMoreJobs();
+        });
+        
+
+        function checkWordLimit(textarea) {
+        const maxWords = 250;
+        const words = textarea.value.trim().split(/\s+/); // Split by whitespace
+        if (words.length > maxWords) {
+            alert(`Vous ne pouvez pas dépasser ${maxWords} mots.`);
+            textarea.value = words.slice(0, maxWords).join(' '); // Trim to max words
+        }
+        }
+    </script>
+
+<script>
+    function submitConditionForm() {
+        const checkbox = document.getElementById('accept');
+        if (checkbox.checked) {
+            alert('Form submitted successfully!');
+        } else {
+            alert('Please accept the terms and conditions before submitting.');
+        }
+    }
+    </script>
+{% endblock JsContent %}

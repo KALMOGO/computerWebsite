@@ -6,7 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     
-
     <style>
         .hero-slider {
             background: linear-gradient(45deg, #3498db, #2ecc71);
@@ -150,26 +149,25 @@
 <main class="container my-5">
     <section class="form-container" id="form-container">
         <h2 class="text-center mb-4">Quels sont vos besoins</h2>
-        <form id="requirementForm">
+        <form id="requirementForm" action="{% url 'recommendation' %}" method="POST">
+            {% csrf_token %}
             <!-- Budget Section -->
             <div class="mb-3">
-                <label for="budget" class="form-label">
-                    Budget ($)
-                </label>
+                <label for="minBudget" class="form-label">Budget ($)</label>
                 <div class="row g-2">
                     <div class="col-12 col-md-6">
-                        <input type="number" class="form-control" id="minBudget" placeholder="Minimum Budget" required>
+                        <input type="number" name="minBudget" class="form-control" id="minBudget" placeholder="Minimum Budget" required>
                     </div>
                     <div class="col-12 col-md-6">
-                        <input type="number" class="form-control" id="maxBudget" placeholder="Maximum Budget" required>
+                        <input type="number" name="maxBudget" class="form-control" id="maxBudget" placeholder="Maximum Budget" required>
                     </div>
                 </div>
             </div>
         
-            <!-- RAM Section -->
+            <!-- Storage Section -->
             <div class="mb-3">
-                <label for="ram" class="form-label">RAM (GB)</label>
-                <select class="selectpicker form-control show-tick" id="ram" multiple data-live-search="true" data-actions-box="true">
+                <label for="storage" class="form-label">Capacité minum de disque dure (GB)</label>
+                <select name="storage" class="selectpicker form-control show-tick" id="storage" multiple data-live-search="true" data-actions-box="true">
                     <option value="2">2 GB</option>
                     <option value="4">4 GB</option>
                     <option value="8">8 GB</option>
@@ -180,43 +178,20 @@
                 </select>
             </div>
         
-            <!-- Disque dure -->
-            <div class="mb-3">
-                <label for="storage" class="form-label">Disque dure (GB)</label>
-                <select class="selectpicker form-control show-tick" id="storage" multiple data-live-search="true" data-actions-box="true">
-                    <option value="2">2 GB</option>
-                    <option value="4">4 GB</option>
-                    <option value="8">8 GB</option>
-                    <option value="16">16 GB</option>
-                    <option value="32">32 GB</option>
-                    <option value="64">64 GB</option>
-                    <option value="128">128 GB</option>
-                </select>
-            </div>
-        
-            <!-- Type de disque -->
-            <div class="mb-3">
-                <label for="storage-type" class="form-label">Type de disque</label>
-                <select class="selectpicker form-control show-tick" id="storage-type" multiple data-live-search="true" data-actions-box="true">
-                    <option value="hdd">HDD</option>
-                    <option value="ssd">SSD</option>
-                </select>
-            </div>
-        
-            <!-- Durée de vie de la baterie -->
+            <!-- Battery Life Section -->
             <div class="mb-3">
                 <label for="battery-life" class="form-label">Durée de vie la batterie (heure)</label>
-                <select class="selectpicker form-control show-tick" id="battery-life" multiple data-live-search="true" data-actions-box="true">
+                <select name="battery-life" class="selectpicker form-control show-tick" id="battery-life" multiple data-live-search="true" data-actions-box="true">
                     <option value="8">8 h</option>
                     <option value="12">12 h</option>
                     <option value="15">15 h</option>
                 </select>
             </div>
         
-            <!-- Decrire l'activité -->
+            <!-- Usage Description -->
             <div class="mb-3">
                 <label for="usage" class="form-label">Activités destinées <span style="color:red">*</span></label>
-                <textarea class="form-control" id="usage" rows="3" placeholder="Décrire votre activité"></textarea>
+                <textarea name="usage" class="form-control" id="usage" rows="3" placeholder="Décrire votre activité"></textarea>
             </div>
         
             <!-- Button Section -->
@@ -364,65 +339,7 @@
 
 
 <script>
-$(document).ready(function() {
-    $('#requirementForm').submit(function(e) {
-        e.preventDefault();
-        document.getElementById('loading').style.display = 'block';
-        document.getElementById('form-container').style.display = 'none';
-
-        // Which icon of loading to display
-        function getRandomBoolean() {
-            const randomValue = (Math.random() + Math.random() + Math.random()) / 3;
-            return randomValue >= 0.5;
-        }
-        if(getRandomBoolean()){
-            document.getElementById('robot-draw').style.display = 'inline-block';
-            document.getElementById('icon-draw').style.display = 'none';
-        }
-        else{
-            document.getElementById('robot-draw').style.display = 'none';
-            document.getElementById('icon-draw').style.display = 'inline-block';
-        }
-        
-        console.log($('#ram').val())
-        // Collect form data
-        var formData = {
-            budget: $('#budget').val(),
-            ram: $('#ram').val(),
-            storage: $('#storage').val(),
-            usage: $('#usage').val(),
-            aiPrompt: $('#aiPrompt').val(),
-            brand: $('#brand').val(),
-            color: $('#color').val(),
-            cpuSpeed: $('#cpuSpeed').val(),
-            batteryLife: $('#batteryLife').val(),
-            screenSize: $('#screenSize').val()
-        };
-
-
-        // Send data to server (replace with actual API endpoint)
-        $.ajax({
-            url: '/api/recommendations',
-            type: 'POST',
-            data: JSON.stringify(formData),
-            contentType: 'application/json',
-            success: function(response) {
-                // Redirect to recommendations page
-                setTimeout(function() {
-                    window.location.href ="{% url 'recommendation' %}";
-                }, 3000);
-            },
-            error: function(xhr, status, error) {
-                //alert('An error occurred. Please try again.');
-                setTimeout(function() {
-                    window.location.href ="{% url 'recommendation' %}";
-                }, 3000);
-            }
-        });
-    });
-    });
-
-    $('.selectpicker').selectpicker({
+$('.selectpicker').selectpicker({
         style: 'btn-default',
         size: 2,
         actionsBox: true, 
@@ -450,6 +367,7 @@ $(document).ready(function() {
         counter.innerText = "" + cpt + "s"
     }
     setInterval(updateDots,  1000);
-    </script>
+</script>
+
 {% endblock JsContent %}
 
